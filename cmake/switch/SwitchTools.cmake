@@ -155,7 +155,7 @@ macro(__add_binary_library target)
             OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/bin2s_lib/${target}.s
             COMMAND ${bin2s} ${ARGN} > ${CMAKE_CURRENT_BINARY_DIR}/bin2s_lib/${target}.s
             DEPENDS ${ARGN}
-            WORKING_DIRECTORY ..
+            WORKING_DIRECTORY ../..
     )
 
     # Add the respective library target.
@@ -222,12 +222,7 @@ endfunction()
 ## It tries to extract a `CONFIG_JSON` property from the supplied
 ## target, which is required to acquire all the configuration
 ## mappings that are needed to construct the format.
-function(__generate_npdm target)
-    get_filename_component(target_we ${target} NAME_WE)
-
-    # Extract and validate metadata from the target.
-    get_target_property(config_json ${target} "CONFIG_JSON")
-
+function(__generate_npdm config_json)
     set_app_json(${config_json})
 
     # The JSON configuration is crucial, we cannot continue without it.

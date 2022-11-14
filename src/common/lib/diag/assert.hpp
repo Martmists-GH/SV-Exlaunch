@@ -17,7 +17,7 @@
 #pragma once
 
 #include "abort.hpp"
-#include "program/setting.hpp"
+#include "setting.hpp"
 
 #ifdef EXL_DEBUG
 

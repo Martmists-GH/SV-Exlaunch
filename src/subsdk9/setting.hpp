@@ -2,8 +2,8 @@
 
 #include "common.hpp"
 
-#define EXL_MODULE_NAME "exlaunch"
-#define EXL_MODULE_NAME_LEN 8
+#define EXL_MODULE_NAME MODULE_NAME
+#define EXL_MODULE_NAME_LEN MODULE_NAME_LEN
 
 #define EXL_DEBUG
 

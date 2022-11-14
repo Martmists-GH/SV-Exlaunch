@@ -2,6 +2,7 @@
 
 #include "fs_types.hpp"
 #include "types.h"
+#include "result.h"
 
 namespace nn::fs {
 

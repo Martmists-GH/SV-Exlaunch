@@ -1,6 +1,7 @@
 # Build directory
 build/
 .cache/
+cmake-build-*/
 
 # Prerequisites
 *.d
@@ -35,3 +36,7 @@ build/
 *.out
 *.app
 .idea/
+.vscode/
+
+# Config files
+config.cmake

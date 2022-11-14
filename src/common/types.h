@@ -68,6 +68,5 @@ typedef __builtin_va_list va_list;
 //using s64 = std::int64_t;
 
 // stores a result on a lot of OS-related functions
-typedef u32 Result;
 typedef u32 Handle;
 typedef void (*ThreadFunc)(void*);

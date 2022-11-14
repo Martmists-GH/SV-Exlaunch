@@ -1,7 +1,7 @@
 #include "mem_layout.hpp"
 
 #include <reloc/rtld.hpp>
-#include <program/setting.hpp>
+#include "setting.hpp"
     
 /* Provided by linkerscript, the start of our executable. */
 extern "C" {
