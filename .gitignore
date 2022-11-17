@@ -40,3 +40,4 @@ cmake-build-*/
 
 # Config files
 config.cmake
+targets.cmake

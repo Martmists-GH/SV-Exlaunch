@@ -53,6 +53,8 @@ def main():
     for dir_path in patch_directories:
         for root, dirs, files in os.walk(dir_path):
             root = root.replace(root_dir, "")
+            if not root.startswith("/"):
+                root = "/" + root
 
             for dir_name in dirs:
                 ensure_directory(ftp, root, dir_name)

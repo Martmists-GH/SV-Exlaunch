@@ -1,11 +1,3 @@
-# Scarlet: 0100A3D008C5C000
-# Violet : 01008F6008C5E000
-set(TITLE_ID 0100A3D008C5C000)
-set(GAME_VERSION 010000)  # 1.0.0 as hex
-
-# Set mod name
-set(MOD_NAME "MyScarletMod")
-
 # IP for logging
 set(LOGGER_IP 192.168.1.1)
 set(LOGGER_PORT 3080)
@@ -15,3 +7,37 @@ set(FTP_IP 192.168.1.1)
 set(FTP_PORT 5000)
 set(FTP_USER abcd)
 set(FTP_PASS xyz123)
+
+# Modules
+add_module(
+        9                               # Module ID
+        TestMod                         # Module name
+        INCLUDE src/include/lua         # Include directories
+                src/include/nn
+                src/include/
+        SOURCE src/common/              # Source paths
+               src/common/exlaunch/
+               src/feature/logging/
+               src/feature/savecheck/
+               src/feature/lua/
+               src/mod/
+)
+add_module_variant(
+        TestMod             # Module name
+        Scarlet             # Variant name
+        0100A3D008C5C000    # Variant Title ID
+        "Pokemon Scarlet"   # Variant Game Name
+)
+add_module_variant(
+        TestMod
+        Violet
+        01008F6008C5E000
+        "Pokemon Violet"
+)
+
+# Extra cmake code
+
+add_compile_definitions(
+    # Enable long types for lua
+    LUA_USE_C89
+)

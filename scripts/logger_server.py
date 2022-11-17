@@ -2,7 +2,10 @@ import asyncio
 import logging
 import sys
 
-logging.basicConfig(format="{message}",
+log_file = None
+
+logging.basicConfig(filename=log_file,
+                    format="{message}",
                     style='{',
                     datefmt="%H:%M:%S",
                     level=logging.DEBUG)
@@ -28,7 +31,7 @@ async def handle_connection(reader, writer):
     writer.close()
 
 
-async def main(port: str = "5123"):
+async def main(port: str = "3080"):
     server = await asyncio.start_server(handle_connection, "0.0.0.0", int(port))
 
     addrs = ', '.join((lambda x: f"{x[0]}:{x[1]}")(sock.getsockname()) for sock in server.sockets)
