@@ -5,7 +5,7 @@
 #include "Socket.h"
 #include "exlaunch.hpp"
 #include "nifm.h"
-#include "socket.h"
+#include "nn/socket.h"
 
 namespace {
     constexpr inline auto DefaultTcpAutoBufferSizeMax      = 192 * 1024; /* 192kb */
