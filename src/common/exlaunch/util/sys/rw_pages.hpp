@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../../../include/common.hpp"
-#include <new>
+#include <common.hpp>
 #include <utility>
+#include <new>
 
 namespace exl::util {
     
@@ -92,6 +92,7 @@ namespace exl::util {
 
             inline uintptr_t GetRo() const { return GetClaim().m_Ro; }
             inline uintptr_t GetRw() const { return GetClaim().m_Rw; }
+            inline uintptr_t GetSize() const{ return GetClaim().m_Size; }
 
             ~RwPages();        
         };

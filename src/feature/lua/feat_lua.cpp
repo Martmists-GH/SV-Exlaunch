@@ -2,12 +2,30 @@
 #include "checks.hpp"
 #include "exlaunch/hook/replace_hook.hpp"
 #include "exlaunch/hook/trampoline_hook.hpp"
-#include "lauxlib.h"
-#include "lua.h"
+#include "lua.hpp"
 
 #if __has_include("feat_logging.h")
 #include "feat_logging.h"
 #endif
+
+int (*lua_rawgeti) (lua_State *L, int idx, lua_Integer n);
+void (*lua_pushnil) (lua_State *L);
+void (*lua_settop) (lua_State *L, int idx);
+const char *(*lua_tolstring) (lua_State *L, int idx, size_t *len);
+const char *(*luaL_tolstring) (lua_State *L, int idx, size_t *len);
+int (*lua_next) (lua_State *L, int idx);
+int (*lua_gettop) (lua_State *L);
+int (*luaB_load) (lua_State *L);
+int (*lua_pcallk) (lua_State *L, int nargs, int nresults, int errfunc, lua_KContext ctx, lua_KFunction k);
+int (*luaL_loadbufferx) (lua_State *L, const char *buff, size_t size, const char *name, const char *mode);
+void (*lua_pushcclosure) (lua_State *L, lua_CFunction fn, int n);
+void (*lua_createtable) (lua_State *L, int narr, int nrec);
+const char *(*luaL_checklstring) (lua_State *L, int arg, size_t *l);
+lua_Integer (*luaL_checkinteger) (lua_State *L, int arg);
+void *(*lua_newuserdatauv) (lua_State *L, size_t sz, int nuvalue);
+void (*lua_setfield) (lua_State *L, int idx, const char *k);
+void *(*lua_touserdata) (lua_State *L, int idx);
+const char *(*lua_pushstring) (lua_State *L, const char *s);
 
 namespace sv::feature::lua {
     HOOK_DEFINE_TRAMPOLINE(LuaOpenBit32Hook){
@@ -22,9 +40,9 @@ namespace sv::feature::lua {
 
     HOOK_DEFINE_TRAMPOLINE(LuaPanicHook) {
         static void Callback(lua_State *L) {
+#ifdef LOGGING_ENABLED
             size_t size;
             const char *message = lua_tolstring(L, -1, &size);
-#ifdef LOGGING_ENABLED
             Logger::log("Lua Panic: %.*s\n", size, message);
 #endif
             Orig(L);
@@ -32,19 +50,19 @@ namespace sv::feature::lua {
     };
 
     HOOK_DEFINE_REPLACE(LuaPrintSocket) {
-        static void Callback(lua_State *L) {
-            int n = lua_gettop(L);
-
+        static int Callback(lua_State *L) {
 #ifdef LOGGING_ENABLED
+            int n = lua_gettop(L);
             Logger::log("Lua Print:");
-            // print all, staying within max size of PACKET_MAX_SIZE
             for (int i = 1; i <= n; i++) {
                 size_t size;
                 const char *message = lua_tolstring(L, i, &size);
                 Logger::log(" %.*s", size, message);
             }
+            lua_settop(L, 0);
             Logger::log("\n");
 #endif
+            return 0;
         }
     };
 

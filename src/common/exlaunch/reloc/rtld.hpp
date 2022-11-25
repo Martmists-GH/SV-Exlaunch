@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../../include/common.hpp"
+#include "common.hpp"
 
 #include "elf.hpp"
 

@@ -1,8 +1,7 @@
 #pragma once
 
 #include "base_hook.hpp"
-#include "exlaunch/util/func_ptrs.hpp"
-#include "nn/ro.h"
+#include "util/func_ptrs.hpp"
 #include <functional>
 
 #define HOOK_DEFINE_TRAMPOLINE(name)                        \
@@ -51,16 +50,7 @@ namespace exl::hook::impl {
         static ALWAYS_INLINE void InstallAtPtr(uintptr_t ptr) {
             _HOOK_STATIC_CALLBACK_ASSERT();
             
-            OrigRef() = nx64::HookFuncRaw(ptr, Derived::Callback, true);
-        }
-
-        static ALWAYS_INLINE void InstallAtSymbol(const char *sym) {
-            _HOOK_STATIC_CALLBACK_ASSERT();
-
-            uintptr_t address = 0;
-            R_ABORT_UNLESS(nn::ro::LookupSymbol(&address, sym));
-
-            OrigRef() = nx64::HookFuncRaw<CallbackFuncPtr<>>(address, Derived::Callback, true);
+            OrigRef() = nx64::HookFuncRaw<CallbackFuncPtr<>>(ptr, Derived::Callback, true);
         }
     };
 

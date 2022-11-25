@@ -1,6 +1,6 @@
 #include "elf.hpp"
 
-#include "../../../include/common.hpp"
+#include "common.hpp"
 
 #include "rtld.hpp"
 

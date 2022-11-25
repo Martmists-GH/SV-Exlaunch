@@ -1,7 +1,6 @@
 #include "feat_logging.h"
 #include "checks.hpp"
-#include "exlaunch/hook/replace_hook.hpp"
-#include "exlaunch/hook/trampoline_hook.hpp"
+#include "exlaunch.hpp"
 #include "fs/fs_files.hpp"
 #include "fs/fs_mount.hpp"
 #include "nifm.h"

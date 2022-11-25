@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../include/common.hpp"
-#include "armv8/register.hpp"
+#include <common.hpp>
 #include "util/math/bitset.hpp"
+#include "armv8/register.hpp"
 
 namespace exl::armv8 {
 

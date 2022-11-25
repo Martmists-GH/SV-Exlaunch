@@ -2,13 +2,16 @@ import asyncio
 import logging
 import sys
 
-log_file = None
+log_file = "socket.log"
 
 logging.basicConfig(filename=log_file,
                     format="{message}",
                     style='{',
                     datefmt="%H:%M:%S",
                     level=logging.DEBUG)
+
+if log_file is not None:
+    logging.getLogger().addHandler(logging.StreamHandler())
 
 
 async def handle_connection(reader, writer):

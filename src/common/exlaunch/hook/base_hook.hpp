@@ -1,8 +1,8 @@
 #pragma once
 
 #include "nx64/nx_hook.hpp"
-#include "exlaunch/util/func_ptrs.hpp"
-#include "exlaunch/util/modules.hpp"
+#include "util/func_ptrs.hpp"
+#include "util/modules.hpp"
 
 #define _HOOK_STATIC_CALLBACK_ASSERT() \
     static_assert(!std::is_member_function_pointer_v<CallbackFuncPtr<>>, "Callback method must be static!")

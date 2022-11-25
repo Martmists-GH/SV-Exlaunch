@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../include/common.hpp"
+#include <common.hpp>
 #include "util/modules.hpp"
 #include "util/sys/mem_layout.hpp"
 #include "util/typed_storage.hpp"

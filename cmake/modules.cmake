@@ -1,5 +1,7 @@
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/switch/SwitchTools.cmake)
 
+add_custom_target(all_modules)
+
 function(add_module index name)
     cmake_parse_arguments(MODULE_ARGS "" "" "INCLUDE;SOURCE" ${ARGN})
 
@@ -16,6 +18,7 @@ function(add_module index name)
     endforeach()
 
     add_custom_target(${name})
+    add_dependencies(all_modules ${name})
 
     set_property(
         TARGET ${name}

@@ -40,4 +40,6 @@ cmake-build-*/
 
 # Config files
 config.cmake
-targets.cmake
+
+# Script outputs
+socket.log

@@ -1,4 +1,4 @@
-#include "../../../include/common.hpp"
+#include "common.hpp"
 
 #include "../../../include/setting.hpp"
 
@@ -65,7 +65,7 @@ extern "C" {
 
 }
 
-#include <exlaunch//util/sys/soc.hpp>
+#include <exlaunch/util/sys/soc.hpp>
 #include <exlaunch/util/sys/mem_layout.hpp>
 #include <exlaunch/patch/patcher_impl.hpp>
 

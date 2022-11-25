@@ -1,13 +1,13 @@
 #pragma once
 
 #include "patcher_impl.hpp"
-#include "exlaunch/armv8.hpp"
+#include "armv8.hpp"
 
 namespace exl::patch {
     
     class StreamPatcher : public PatcherImpl {
         private:
-        inline bool DoneNothing() const {
+        constexpr bool DoneNothing() const {
             return m_Start == m_Current;
         }
 
