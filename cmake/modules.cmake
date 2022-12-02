@@ -197,5 +197,5 @@ function(create_nso variant subsdk)
 
     # Add the respective NSO target and set the required linker flags for the original target.
     add_custom_target(${variant}_nso SOURCES ${CMAKE_BINARY_DIR}/${variant}_out/${subsdk})
-    set_target_properties(${variant} PROPERTIES LINK_FLAGS "-specs ${CMAKE_CURRENT_BINARY_DIR}/${variant}.specs -g3 ${ARCH} -nostartfiles")
+    set_target_properties(${variant} PROPERTIES LINK_FLAGS "-specs=${CMAKE_CURRENT_BINARY_DIR}/${variant}.specs -g3 ${ARCH} -nostartfiles")
 endfunction()

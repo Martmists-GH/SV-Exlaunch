@@ -76,6 +76,8 @@ namespace sv::feature::logging {
             ArcLoadHook::InstallAtOffset(0xC96254);
         } else if (is_version("1.0.1")) {
             ArcLoadHook::InstallAtOffset(0xc9b4a8);
+        } else if (is_version("1.1.0")) {
+            ArcLoadHook::InstallAtOffset(0xccc65c);
         } else {
             EXL_ASSERT(false, "Unknown version");
         }

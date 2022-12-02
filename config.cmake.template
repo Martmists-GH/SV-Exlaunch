@@ -19,6 +19,7 @@ add_module(
                src/common/exlaunch/
                src/feature/logging/
                src/feature/savecheck/
+               src/feature/romfs/
                src/feature/lua/
                src/mod/
 )
@@ -36,7 +37,6 @@ add_module_variant(
 )
 
 # Extra cmake code
-
 add_compile_definitions(
     # Enable long types for lua
     LUA_USE_C89

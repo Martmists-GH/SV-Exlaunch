@@ -2,7 +2,6 @@
 
 #include "socket/Socket.h"
 
-#ifndef NDEBUG
 #define LOGGING_ENABLED 1
 
 class Logger : public Socket {
@@ -18,4 +17,3 @@ public:
 namespace sv::feature::logging {
     void exl_main();
 }
-#endif
