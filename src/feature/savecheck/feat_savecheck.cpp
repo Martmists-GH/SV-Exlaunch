@@ -23,7 +23,7 @@ namespace sv::feature::savecheck {
         } else if (is_version("1.0.1")) {
             SaveDataCheckHook::InstallAtOffset(0x12e121c);
         } else if (is_version("1.1.0")) {
-            SaveDataCheckHook::InstallAtOffset(0x131eadc)
+            SaveDataCheckHook::InstallAtOffset(0x131eadc);
         } else {
             EXL_ASSERT(false, "Unknown version");
         }
