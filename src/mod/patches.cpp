@@ -32,7 +32,7 @@ void changeGameVersion(u64 targetVersion) {
     // For violet, set to 1
 }
 
-static float speedMultiplier = 1.5;
+static const float speedMultiplier = 1.5;
 
 void patchGameSpeed() {
     int addr;
@@ -41,6 +41,8 @@ void patchGameSpeed() {
         addr = 0x3871798;
     } else if (is_version("1.0.1")) {
         addr = 0x3826ed8;
+    } else if (is_version("1.1.0")) {
+        addr = 0x38d0b58;
     } else {
         EXL_ASSERT(false, "Unknown version");
     }

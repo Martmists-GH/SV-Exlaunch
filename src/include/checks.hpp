@@ -4,9 +4,6 @@
 #include "oe.h"
 #include <cstring>
 
-#define SCARLET 0x0100A3D008C5C000
-#define VIOLET  0x01008F6008C5E000
-
 inline bool is_game(u64 game_id) {
     u64 id;
     svcGetInfo(&id, 18, CUR_PROCESS_HANDLE, 0);

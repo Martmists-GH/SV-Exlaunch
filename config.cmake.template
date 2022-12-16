@@ -40,4 +40,6 @@ add_module_variant(
 add_compile_definitions(
     # Enable long types for lua
     LUA_USE_C89
+    SCARLET=0x0100A3D008C5C000
+    VIOLET=0x01008F6008C5E000
 )
