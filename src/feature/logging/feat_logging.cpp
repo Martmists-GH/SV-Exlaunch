@@ -44,6 +44,10 @@ namespace sv::feature::logging {
             R_ABORT_UNLESS(Logger::instance().init(LOGGER_IP, LOGGER_PORT).value);
             Logger::log(MODULE_NAME " Loaded!\n");
 
+            nn::oe::DisplayVersion display_version;
+            nn::oe::GetDisplayVersion(&display_version);
+            Logger::log("Detected version: %s\n", display_version.name);
+
             Orig();
         }
     };
@@ -69,8 +73,21 @@ namespace sv::feature::logging {
         }
     };
 
+    HOOK_DEFINE_TRAMPOLINE(AbortLogger) {
+        static void Callback(char const *errCode, char const *func, char const *line, int code, char const *fmt, ...) {
+            va_list args;
+            va_start(args, fmt);
+            char buf[0x100];
+            vsnprintf(buf, sizeof(buf), fmt, args);
+            va_end(args);
+            Logger::log("Abort: %s", buf);
+            Orig(errCode, func, line, code, "%s", buf);
+        }
+    };
+
     void exl_main() {
         MainInitHook::InstallAtFuncPtr(nnMain);
+        AbortLogger::InstallAtSymbol("_ZN2nn4diag6detail9AbortImplEPKcS3_S3_iS3_z");
 
         if (is_version("1.0.0")) {
             ArcLoadHook::InstallAtOffset(0xC96254);
@@ -79,7 +96,7 @@ namespace sv::feature::logging {
         } else if (is_version("1.1.0")) {
             ArcLoadHook::InstallAtOffset(0xccc65c);
         } else {
-            EXL_ASSERT(false, "Unknown version");
+            EXL_ABORT(0, "Unknown version");
         }
 
         OpenFileHook::InstallAtFuncPtr(nn::fs::OpenFile);

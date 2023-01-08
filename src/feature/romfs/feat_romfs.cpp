@@ -7,6 +7,8 @@
 
 #if __has_include("feat_logging.h")
 #include "feat_logging.h"
+#include "helpers/fsHelper.h"
+
 #endif
 
 
@@ -67,11 +69,9 @@ DEFINE_EXTERNAL(FlatBufferReadResult (*readFileToBuffer)(FlatBufferReadInfo* rea
 namespace sv::feature::romfs {
     void NOINLINE fileRedirectionFunc(FlatBufferLoader *loader) {
         if(loader->mFileInfo && loader->field_148 && loader->field_A8) {
-            readResult = nn::fs::OpenFile(&newReadInfo.mHandle, loader->mFileInfo->mPath, nn::fs::OpenMode::OpenMode_Read);
-
-            if(readResult.isSuccess()) {
-                nn::fs::GetFileSize(&newReadInfo.mSize, newReadInfo.mHandle);
-                loader->mBufferSize = newReadInfo.mSize;
+            if (FsHelper::isFileExist(loader->mFileInfo->mPath)) {
+                long fileSize = FsHelper::getFileSize(loader->mFileInfo->mPath);
+                loader->mBufferSize = fileSize;
             }
         }
     }
@@ -99,19 +99,23 @@ namespace sv::feature::romfs {
 
     HOOK_DEFINE_TRAMPOLINE(FlatBufferLoaderHook) {
         static FlatBufferReadResult Callback(FlatBufferLoader *thisPtr, void *buffer, ulong bufferSize) {
-
             if(thisPtr->mFileInfo && thisPtr->field_148 && thisPtr->field_A8) {
+                if(FsHelper::isFileExist(thisPtr->mFileInfo->mPath)) {
+                    FlatBufferReadInfo readInfo;
+                    readInfo.mPosition = 0;
 
-                if(readResult.isSuccess()) {
+                    nn::Result openResult = nn::fs::OpenFile(&readInfo.mHandle, thisPtr->mFileInfo->mPath, nn::fs::OpenMode::OpenMode_Read);
+                    if(openResult.isSuccess()) {
+                        auto result = readFileToBuffer(&readInfo, buffer, bufferSize);
 
-                    newReadInfo.mPosition = 0;
+                        nn::fs::CloseFile(readInfo.mHandle);
 
-                    auto result = readFileToBuffer(&newReadInfo, buffer, bufferSize);
-
-                    thisPtr->field_180 = 1;
-                    thisPtr->mReadPosition = newReadInfo.mPosition;
-
-                    return result;
+                        thisPtr->field_180 = 1;
+                        thisPtr->mReadPosition = readInfo.mPosition;
+                        return result;
+                    } else {
+                        EXL_ABORT(0, "File Read Failed! Unable to Continue. Path: %s\n", thisPtr->mFileInfo->mPath);
+                    }
                 }
             }
 
@@ -143,7 +147,7 @@ namespace sv::feature::romfs {
             FlatBufferCreateFlatBuffer2Hook::InstallAtOffset(0x1E9E1E4);
             FlatBufferCreateFlatBuffer3Hook::InstallAtOffset(0x1EEB2E4);
         } else {
-            EXL_ASSERT(false, "Unknown version.");
+            EXL_ABORT(0, "Unknown version.");
         }
     }
 }

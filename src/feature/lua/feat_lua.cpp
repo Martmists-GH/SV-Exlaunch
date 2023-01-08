@@ -50,7 +50,7 @@ namespace sv::feature::lua {
         }
     };
 
-    HOOK_DEFINE_REPLACE(LuaPrintSocket) {
+    HOOK_DEFINE_TRAMPOLINE(LuaPrintSocket) {
         static int Callback(lua_State *L) {
 #ifdef LOGGING_ENABLED
             int n = lua_gettop(L);
@@ -63,7 +63,7 @@ namespace sv::feature::lua {
             lua_settop(L, 0);
             Logger::log("\n");
 #endif
-            return 0;
+            return Orig(L);
         }
     };
 
@@ -138,7 +138,7 @@ namespace sv::feature::lua {
             EXTERNAL_ADDRESS(lua_touserdata, 0x9b2950);
             EXTERNAL_ADDRESS(lua_pushstring, 0x9f46f0);
         } else {
-            EXL_ASSERT(false, "Unknown version");
+            EXL_ABORT(0, "Unknown version");
         }
 #undef EXTERNAL_ADDRESS
     }

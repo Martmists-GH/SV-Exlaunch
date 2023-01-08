@@ -35,5 +35,6 @@ namespace nn
        void FinishStartupLogo();
        nn::settings::LanguageCode GetDesiredLanguage();
        void GetDisplayVersion(DisplayVersion*);
+       void GetDefaultDisplayResolution(u32 * width, u32 * height);
    };
 };

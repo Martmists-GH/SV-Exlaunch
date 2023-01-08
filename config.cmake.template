@@ -21,7 +21,9 @@ add_module(
                src/feature/savecheck/
                src/feature/romfs/
                src/feature/lua/
+               src/feature/imgui/
                src/mod/
+        SOURCE_SHALLOW imgui/
 )
 add_module_variant(
         TestMod             # Module name
@@ -42,4 +44,5 @@ add_compile_definitions(
     LUA_USE_C89
     SCARLET=0x0100A3D008C5C000
     VIOLET=0x01008F6008C5E000
+    IMGUI_720=true  # 720p or 1080p
 )

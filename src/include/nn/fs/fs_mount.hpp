@@ -9,4 +9,7 @@ namespace nn::fs {
         mount: drive to mount to.
     */
     Result MountSdCardForDebug(char const* mount);
+
+    void QueryMountRomCacheSize(uint64_t* out);
+    void MountRom(char const* mount, void* cache, uint64_t cache_size);
 };

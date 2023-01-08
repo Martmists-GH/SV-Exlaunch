@@ -1,6 +1,7 @@
 #include "exlaunch.hpp"
 #include "patches.hpp"
 #include "externals.hpp"
+#include "nn/fs.h"
 
 #if __has_include("feat_logging.h")
 #include "feat_logging.h"
@@ -16,6 +17,10 @@
 
 #if __has_include("feat_romfs.h")
 #include "feat_romfs.h"
+#endif
+
+#if __has_include("feat_imgui.h")
+#include "feat_imgui.h"
 #endif
 
 extern "C" void exl_main(void* x0, void* x1) {
@@ -36,7 +41,11 @@ extern "C" void exl_main(void* x0, void* x1) {
 #endif
 
 #ifdef ROMFS_ENABLED
-    // sv::feature::romfs::exl_main();
+     sv::feature::romfs::exl_main();
+#endif
+
+#ifdef IMGUI_ENABLED
+    sv::feature::imgui::exl_main();
 #endif
 
     runCodePatches();
