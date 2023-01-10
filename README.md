@@ -20,6 +20,6 @@ I recommend removing the Logger feature in release builds.
 - [CraftyBoss](https://github.com/CraftyBoss) 
   - [Original repo](https://github.com/CraftyBoss/Scarlet-Exlaunch-Base)
   - RomFS Redirection implementation for 1.0.0
-  - Imgui implementation
+  - Initial ImGui implementation
 - [Shadow](https://github.com/shadowninja108)
   - [Exlaunch](https://github.com/shadowninja108/exlaunch)

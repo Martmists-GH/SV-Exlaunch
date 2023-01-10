@@ -10,19 +10,15 @@ set(FTP_PASS xyz123)
 
 # Modules
 add_module(
-        9                               # Module ID
-        TestMod                         # Module name
-        INCLUDE src/include/lua         # Include directories
-                src/include/nn
-                src/include/
-        SOURCE src/common/              # Source paths
-               src/common/exlaunch/
-               src/feature/logging/
-               src/feature/savecheck/
-               src/feature/romfs/
-               src/feature/lua/
-               src/feature/imgui/
-               src/mod/
+        9                                   # Module ID
+        TestMod                             # Module name
+        INCLUDE include/lua                 # Include directories
+                include/nn
+                include/
+        SOURCE src_mod/common/              # Source paths
+               src_mod/common/exlaunch/
+               src_mod/common/lua/
+               src_mod/mod/
         SOURCE_SHALLOW imgui/
 )
 add_module_variant(
@@ -38,11 +34,34 @@ add_module_variant(
         "Pokemon Violet"
 )
 
+# RomFS Redirect as separate module
+add_module(
+        1
+        RomFS_Redirect
+        INCLUDE include/nn
+                include/
+        SOURCE src_romfs/common/
+               src_romfs/common/exlaunch/
+               src_romfs/feature/romfs/
+               src_romfs/mod/
+)
+add_module_variant(
+        RomFS_Redirect
+        Scarlet
+        0100A3D008C5C000
+        "Pokemon Scarlet"
+)
+add_module_variant(
+        RomFS_Redirect
+        Violet
+        01008F6008C5E000
+        "Pokemon Violet"
+)
+
 # Extra cmake code
 add_compile_definitions(
     # Enable long types for lua
     LUA_USE_C89
     SCARLET=0x0100A3D008C5C000
     VIOLET=0x01008F6008C5E000
-    IMGUI_720=true  # 720p or 1080p
 )
