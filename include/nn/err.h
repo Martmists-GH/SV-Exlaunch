@@ -1,6 +1,7 @@
 #pragma once 
 
 #include "settings.h"
+#include "types.h"
 
 namespace nn {
     namespace err {

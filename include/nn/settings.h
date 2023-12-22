@@ -1,5 +1,7 @@
 #pragma once
 
+#include "nn/result.h"
+
 namespace nn {
 namespace settings {
     namespace system {

@@ -15,10 +15,9 @@ add_module(
         INCLUDE include/lua                 # Include directories
                 include/nn
                 include/
-        SOURCE src_mod/common/              # Source paths
-               src_mod/common/exlaunch/
-               src_mod/common/lua/
-               src_mod/mod/
+        SOURCE src/common/                  # Source paths
+               src/common/exlaunch/
+               src/mod/
         SOURCE_SHALLOW imgui/
 )
 add_module_variant(
@@ -40,10 +39,9 @@ add_module(
         RomFS_Redirect
         INCLUDE include/nn
                 include/
-        SOURCE src_romfs/common/
-               src_romfs/common/exlaunch/
-               src_romfs/feature/romfs/
-               src_romfs/mod/
+        SOURCE src/common/
+               src/common/exlaunch/
+               src/romfs/
 )
 add_module_variant(
         RomFS_Redirect

@@ -2,12 +2,19 @@
 
 #include "exlaunch/nx/kernel/svc.h"
 #include "oe.h"
+#include <string>
 #include <cstring>
 
 inline bool is_game(u64 game_id) {
     u64 id;
     svcGetInfo(&id, 18, CUR_PROCESS_HANDLE, 0);
     return id == game_id;
+}
+
+inline std::string get_version() {
+    nn::oe::DisplayVersion display_version;
+    nn::oe::GetDisplayVersion(&display_version);
+    return display_version.name;
 }
 
 inline bool is_version(const char* version) {
